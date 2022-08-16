@@ -17,7 +17,6 @@ class chunk():
        x = x % self.sizex
        coord = (y * self.sizex + x ) - 9
        return self.map[coord] 
-        
-#################
-
+      
+##################
     
