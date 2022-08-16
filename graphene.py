@@ -11,7 +11,7 @@ from os.path import exists
 import vlc
 from threading import Thread
 win=Tk()
-
+registered_textures = {}
 SRAM = []
 colliders = []
 speed_X = 1
@@ -28,6 +28,8 @@ space = Space()
 jump = 1
 camerax = 0
 cameray = 0
+###to imrpove performace
+
 
 # setup ##############
 def setup(windx , windy):
@@ -40,8 +42,7 @@ def setup(windx , windy):
 
 class sprite:
     def __init__(self, master , x , y , mode):
-     path = file=os.getcwd()+'/assets/' + master
-     self.img=ImageTk.PhotoImage(file=path)
+     self.img= master
      self.x = x
      self.y = y
      self.camx = y
@@ -95,11 +96,17 @@ class sprite:
          exec(tmp)
 ####
 def NewActiveSprite(name , texture , x , y ,code):
+  global registered_textures
+  #### auto register unknown textures ####
+  if not texture in registered_textures :
+     path = os.getcwd()+'/assets/' + texture
+     registered_textures[texture] = ImageTk.PhotoImage(file=path)     
+  ######
   lstsprite = len(SRAM)
   t = len(SRAM)
   SRAM.append(name)
   ActiveSprite = t
-  SRAM[t] = sprite(texture , x , y , "world")
+  SRAM[t] = sprite(registered_textures[texture] , x , y , "world")
   SRAM[t].code = code
   SRAM[t].name = name
 def newsprite(name , texture , x ,y ):
