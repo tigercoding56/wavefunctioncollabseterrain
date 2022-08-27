@@ -5,48 +5,102 @@ import  graphene
 import terrain as wc
 import time
 import schematics as schems
-mapsizex = 40
-mapsizey = 40
-viewportsize = 2 #### higher = smaller postion of map visible at once 
-map = tile.chunk(mapsizex - 1 ,mapsizey - 1 )
-y = 0 
-movementx = 0
-movementy =0
-camerax = 0
-cameray =  0
-texturesize = 10 
+import pickle
 
-for y in range(0  , mapsizey):
-    for x in range(0, mapsizex):
-     map.setTile(x,y , "none")     
+####
+def mapgen():
+    global tile
+    global mapsizex
+    global mapsizey
+    global viewportsize
+    global map
+    global movementx
+    global movementy
+    global camerax
+    global cameray
+    global texturesize
+    mapsizex = 40
+    mapsizey = 40
+    viewportsize = 2 #### higher = smaller postion of map visible at once 
+    map = tile.chunk(mapsizex - 1 ,mapsizey - 1 )
+    y = 0 
+    movementx = 0
+    movementy =0
+    camerax = 0
+    cameray =  0
+    texturesize = 10 
 
-######## wave function collapse implementation  probably  bad #####
-for counter in range(1, 10 ):
- x = random.randint(0, mapsizex )
- y = random.randint(0, mapsizey )
- tile = wc.randTile(map,x,y)
- map.setTile(x,y , tile )
+    for y in range(0  , mapsizey):
+        for x in range(0, mapsizex):
+         map.setTile(x,y , "none")     
 
-for y in range(0  , mapsizey):
-    for x in range(0, mapsizex):
-     tile = wc.randTile(map , x ,y)
+    ######## wave function collapse implementation  probably  bad #####
+    for counter in range(1, 10 ):
+     x = random.randint(0, mapsizex )
+     y = random.randint(0, mapsizey )
+     tile = wc.randTile(map,x,y)
      map.setTile(x,y , tile )
-###CLEANUP###
-for y in range(0  , mapsizey):
-    for x in range(0, mapsizex):
-     if map.returnTile(x,y ) == "sand" :
-       if not "grass" in wc.getntiles(map , x ,y )  :
-           map.setTile(x , y , "water" )
-###now remove sand from grass ####
-for y in range(0  , mapsizey):
-    for x in range(0, mapsizex):
-     if map.returnTile(x,y ) == "sand" :
-       if not "water" in wc.getntiles(map , x ,y )  :
-           map.setTile(x , y , "grass" )
-####we just have to add structures now how about trees first ?
-map.placeschem(schems.apple ,0,0)           
-        
-print(map.map)
+
+    for y in range(0  , mapsizey):
+        for x in range(0, mapsizex):
+         tile = wc.randTile(map , x ,y)
+         map.setTile(x,y , tile )
+    ###CLEANUP###
+    for y in range(0  , mapsizey):
+        for x in range(0, mapsizex):
+         if map.returnTile(x,y ) == "sand" :
+           if not "grass" in wc.getntiles(map , x ,y )  :
+               map.setTile(x , y , "water" )
+    ###now remove sand from grass ####
+    for y in range(0  , mapsizey):
+        for x in range(0, mapsizex):
+         if map.returnTile(x,y ) == "sand" :
+           if not "water" in wc.getntiles(map , x ,y )  :
+               map.setTile(x , y , "grass" )
+
+######################################################import map
+def importmap(file):
+    leveldata = open(file , 'rb')
+    leveldata = pickle.load(leveldata)
+    mapsizex = leveldata[1]
+    mapsizey = leveldata[2]
+    viewportsize = leveldata[3]
+    map = leveldata[4]
+    y = leveldata[5]
+    movementx = leveldata[6]
+    movementy = leveldata[7]
+    camerax = leveldata[8]
+    cameray =  leveldata[9]
+    texturesize = leveldata[10]
+#################################################### export map
+def savemap(file):
+    global mapsizex
+    global mapsizey
+    global viewportsize
+    global map
+    global movementx
+    global movementy
+    global camerax
+    global cameray
+    global texturesize
+    leveldata[0] = ["level format made by @celleron56"]
+    leveldata[1] = mapsizex 
+    leveldata[2] = mapsizey 
+    viewportsize = leveldata[3]
+    leveldata[4] = map
+    leveldata[5] = y 
+    leveldata[6] = movementx 
+    leveldata[7] = movementy 
+    leveldata[8] = camerax  
+    leveldata[9] = cameray 
+    leveldata[10] =  texturesize  
+               
+
+
+######################################################end
+mapgen()               
+               
+               
 graphene.setup( int((texturesize * mapsizex) / viewportsize)  , int((texturesize * mapsizey) /  viewportsize))
 graphene.bevoreloop()
 def  updatemap():

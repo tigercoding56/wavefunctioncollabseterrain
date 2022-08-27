@@ -6,6 +6,10 @@ def getntiles(map,x,y):
      nt.append(map.returnTile(x ,y + 1))
      nt.append(map.returnTile(x ,y - 1))
      return nt
+    
+   
+         
+         
 def  randTile(map , x , y):
     possibletiles = [ "water"  , "grass", "stone" ]
     nt = []

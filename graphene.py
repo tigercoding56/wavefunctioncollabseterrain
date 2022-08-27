@@ -4,11 +4,11 @@ from tkinter import *
 from PIL import  ImageTk
 import os
 import time
-from pecrs import *
+##from pecrs import *
 import math
 import random
 from os.path import exists
-import vlc
+##import vlc
 from threading import Thread
 win=Tk()
 registered_textures = {}
@@ -24,7 +24,6 @@ playerx = 0
 playery = 0
 velx = 0
 vely = -10
-space = Space()
 jump = 1
 fcamerax = 0
 fcameray = 0

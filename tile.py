@@ -25,7 +25,14 @@ class chunk():
            instruction 
            self.setTile(  instruction[1] + offsetx , instruction[2] + offsety , instruction[0])
            
-   
+  def gettiles(self , x , y ,radius):
+    nt = []
+    for yd in radius :
+     for xd in radius :
+         x = x - floor( radius / 2 )
+         y = y - floor(radius / 2 )
+         nt.append(self.returnTile(x + xd , y + yd))
+    return nt   
         
 #################
 
