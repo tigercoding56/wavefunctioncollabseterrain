@@ -60,8 +60,8 @@ def mapgen():
 
 ######################################################import map
 def importmap(file):
-    leveldata = open(file , 'rb')
-    leveldata = pickle.load(leveldata)
+    leveldatafile = open(file , 'rb')
+    leveldata = pickle.load(leveldatafile)
     mapsizex = leveldata[1]
     mapsizey = leveldata[2]
     viewportsize = leveldata[3]
@@ -72,6 +72,7 @@ def importmap(file):
     camerax = leveldata[8]
     cameray =  leveldata[9]
     texturesize = leveldata[10]
+    leveldatafile.close()
 #################################################### export map
 def savemap(file):
     global mapsizex
@@ -83,6 +84,7 @@ def savemap(file):
     global camerax
     global cameray
     global texturesize
+    leveldatafile = open(file , 'wb')
     leveldata[0] = ["level format made by @celleron56"]
     leveldata[1] = mapsizex 
     leveldata[2] = mapsizey 
@@ -93,7 +95,9 @@ def savemap(file):
     leveldata[7] = movementy 
     leveldata[8] = camerax  
     leveldata[9] = cameray 
-    leveldata[10] =  texturesize  
+    leveldata[10] =  texturesize
+    pickle.dump(leveldata , leveldatafile)
+    leveldatafile.close()
                
 
 
