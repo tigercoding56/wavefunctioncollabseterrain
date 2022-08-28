@@ -12,11 +12,8 @@ def getntiles(map,x,y):
          
 def  randTile(map , x , y):
     possibletiles = [ "water"  , "grass", "stone" ]
-    nt = []
-    nt.append(map.returnTile(x + 1,y))
-    nt.append(map.returnTile(x - 1,y))
-    nt.append(map.returnTile(x ,y + 1))
-    nt.append(map.returnTile(x ,y - 1))
+    nt = map.gettiles(x , y , 1)
+   
     if "stone" in nt :
         if "sand" in nt:
            return "grass"
