@@ -28,7 +28,7 @@ jump = 1
 fcamerax = 0
 fcameray = 0
 ###to imrpove performace
-
+idl = 0
 
 # setup ##############
 def setup(windx , windy):
@@ -93,7 +93,8 @@ def input_handler(event):
      movecam(speed_X , 0)
  if temp == 'Right':
      movecam( 0 - speed_X , 0) 
-
+ if temp == "e":
+     idl = 1
 def bevoreloop():
     global canvas 
     canvas.bind_all('<KeyPress>' , input_handler)
