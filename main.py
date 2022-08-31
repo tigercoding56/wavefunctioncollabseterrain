@@ -18,7 +18,13 @@ movementx = 0
 movementy =0
 camerax = 0
 cameray =  0
-texturesize = 10 
+texturesize = 10
+
+
+############# ABM ###########
+
+
+
 def mapgen(tile , seed):
     random.seed(seed)
     randomly.random.seed(seed)
@@ -154,7 +160,8 @@ else:
   seed = input("map seed " )
   mapgen(tile , seed)               
                
-               
+tile.ABM_register("abp.terrafixabm(blockx , blocky , conlist)" , map ,"grass" , 28   )
+
 graphene.setup( int((texturesize * mapsizex) / viewportsize)  , int((texturesize * mapsizey) /  viewportsize))
 graphene.bevoreloop()
 def  updatemap():
@@ -177,6 +184,7 @@ while True:
     camerax = 0 - graphene.fcameray
     updatemap()
     time.sleep(0.15)
+    tile.ABM_run()
     if graphene.idl == 1 :
         graphene.idl = 0
         if interactive == 1 :

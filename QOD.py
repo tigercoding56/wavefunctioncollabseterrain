@@ -1,0 +1,4 @@
+import random
+def quote_of_day()
+ qod = ["once a person is dead there is nothing anyone can do for that person except pray if you belife in religion " , "noone will remember this probably but whatever " , " this is a quote of the day ", "545 is a nice seed try it ;P" , "thx for using this " , "once i am gone i will probably not be Able to care if anyone runs this ", "having a fancy burial is nice but will the person being buried be able to enjoy it " , "i need to stop making my quotes of day so metal " , "on another hand rust is a good language so should i ?" , "rust ccannot be without metal " , "so yeah ", "i may need to make them more metal " , "to get better at rust " , "protect your freedooms use open source !!!" , "libre software is going to win " , "eventually" , "but for now install a libre opensource operating system" , "like guix "]
+ return qod[random.randInt(1,len(qod))]
