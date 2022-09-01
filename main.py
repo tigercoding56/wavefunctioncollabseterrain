@@ -7,6 +7,7 @@ import terrain as wc
 import time
 import schematics as schems
 import pickle
+import menu 
 ####
 interactive = 0
 mapsizex = 40
@@ -145,9 +146,10 @@ def savemap(file):
 
 
 ######################################################end
-t = input(" import map (i) or generate new map (n) ? " ) 
-if t == "i" :
- t = input("map file  ")
+t = menu.menu()
+print(t[0])
+if t[0] == 'loadmap' :
+ t = t[1]
  if t == "menu.cmp" :
    t = input("e to execute code i to import  map menu.cmp ")
    if t == "e" :
@@ -156,10 +158,10 @@ if t == "i" :
     mapgen(tile , seed)   
    if t == "i" :
     importmap("menu.cmp")
-else:
-  seed = input("map seed " )
+elif t[0] == "newmap" :
+  seed = int(t[1])
   mapgen(tile , seed)               
-               
+  
 tile.ABM_register("abp.terrafixabm(blockx , blocky , conlist)" , map ,"grass" , 28   )
 
 graphene.setup( int((texturesize * mapsizex) / viewportsize)  , int((texturesize * mapsizey) /  viewportsize))

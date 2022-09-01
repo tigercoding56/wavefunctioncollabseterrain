@@ -9,7 +9,6 @@ import math
 import random
 from os.path import exists
 ##import vlc
-from threading import Thread
 win=Tk()
 registered_textures = {}
 SRAM = ["","",""]
